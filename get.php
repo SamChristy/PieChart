@@ -2,6 +2,7 @@
 include 'imagick/PieChart.php';
 
 // TODO Add more default colours for the Pie Chart. Possibly include them as class constants?
+// TODO Finish this... :)
 $defaultColors = array(
     '#4A7EBB',  // blue
     '#9BBB59',  // green
