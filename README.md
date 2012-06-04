@@ -1,7 +1,7 @@
 PieChart
 ========
 
-A reasonably efficient class for drawing pie charts with ImageMagick or GD in PHP. Intended as a 
+A reasonably efficient* class for drawing pie charts with ImageMagick or GD in PHP. Intended as a 
 learning exercise for using the NetBeans IDE and the Xdebug profiler and debugger. The code is 
 available under the [GNU GPL v3.0](http://www.gnu.org/licenses/gpl-3.0.html), so feel free to use it
 with attribution. I recommend using the Imagick version, `imagick/PieChart.php` over the GD version,
@@ -16,8 +16,8 @@ uses the method `outputPNG()` to tell the browser to render the image. Alternati
 ````php
 include 'imagick/PieChart.php';
 
-$width  = 400 * 1.5;
-$height = 250 * 1.5;
+$width  = 600;
+$height = 375;
 $title = 'Browser Usage Statistics (January - April)';
 
 $chart = new PieChart($width, $height);
@@ -31,8 +31,9 @@ $chart->addSlice('Opera',            3, '#BE4B48');
 $chart->addSlice('Other',            5, '#7D60A0');
 
 $chart->draw();
-
 $chart->outputPNG('Browser Statistics 2012 Q1.png');
 ````
 #### Output ####
 ![Pie Chart](https://github.com/SamChristy/PieChart/raw/master/saved-charts/Browser%20Statistics%202012%20Q1.png)
+
+*This example took 150ms to execute on my laptop (i3-350M @ 2.27 GHz).
