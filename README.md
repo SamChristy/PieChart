@@ -14,6 +14,7 @@ uses the method `outputPNG()` to tell the browser to render the image. Alternati
 
 #### Code ####
 ````php
+<?php
 include 'imagick/PieChart.php';
 
 $width  = 600;
