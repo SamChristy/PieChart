@@ -1,11 +1,18 @@
 <?php
-include 'imagick/PieChart.php';
-
 $width  = 400 * 1.5;
 $height = 250 * 1.5;
 $title = 'Browser Usage Statistics (January - April)';
 
-$chart = new PieChart($width, $height);
+if (extension_loaded('imagick'))
+{
+    require 'imagick/PieChart.php';
+    $chart = new PieChart($width, $height);
+}
+else
+{
+    require 'gd/PieChartGD.php';
+    $chart = new PieChartGD($width, $height);    
+}
 
 $chart->setTitle($title, 'fonts/Oswald/Oswald-Regular.ttf');
 
@@ -19,4 +26,3 @@ $chart->draw();
 
 $chart->outputPNG('Browser Statistics 2012 Q1.png');
 exit;
-//$chart->destroy();

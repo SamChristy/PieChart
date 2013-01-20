@@ -1,8 +1,9 @@
 <?php
 /**
- * Super cool pie chart drawing class that uses GD2 - despite the fact that it's a piece of shit!
+ * Super cool pie chart drawing class that uses GD, despite the fact that it's inferior 
+ * to ImageMagick...
  * 
- * <b>Reasons that GD is <i>shit</i>:</b>
+ * <b>Reasons to dislike GD:</b>
  * <ul>
  * <li>No anti-aliasing</li>
  * <li>No font pre-loading</li>
@@ -10,7 +11,7 @@
  * </ul>
  */
 class PieChartGD {
-
+// TODO: Add anti-aliasing for GD.
     const POSITION_LEFT = 0;
     const POSITION_TOP = 1;
     const POSITION_RIGHT = 2;
@@ -97,7 +98,7 @@ class PieChartGD {
      */
     public function addSlice($name, $value, $color) {
         
-        $processedColor = is_array($color) ? $color : PieChart::processColor($color);
+        $processedColor = is_array($color) ? $color : PieChartGD::processColor($color);
 
         $red   = $processedColor[0];
         $green = $processedColor[1];

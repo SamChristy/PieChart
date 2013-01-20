@@ -1,0 +1,27 @@
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# Project & temporary files #
+#############################
+*~
+*.swp
+/tags
+/TAGS
+/cscope.*
+/.patches/
+/.idea/
+/nbproject/
+CVS
+.DS_Store
+/.settings/
+/.project
+/.buildpath
+/.cache
