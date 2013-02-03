@@ -1,4 +1,6 @@
 <?php
+include '/../lib/imageSmoothArc.php';
+
 /**
  * Super cool pie chart drawing class that uses GD, despite the fact that it's inferior 
  * to ImageMagick...
@@ -132,7 +134,7 @@ class PieChartGD {
      */
     public function draw() {
         $total = 0;
-        $sliceStart = -90;  // Start at 12 o'clock.
+        $sliceStart = 90;  // Start at 12 o'clock.
 
         $titleHeight = $this->_drawTitle();
         $legendWidth = $this->_drawLegend($titleHeight);
@@ -152,7 +154,7 @@ class PieChartGD {
             $total += $slice['value'];
 
         // Draw the slices.
-        foreach ($this->slices as &$slice) {
+        foreach (array_reverse($this->slices) as $slice) {
             $sliceWidth = 360 * $slice['value'] / $total;
 
             // Skip slices that are too small to draw / be visible.
@@ -160,32 +162,25 @@ class PieChartGD {
                 continue;
 
             $sliceEnd = $sliceStart + $sliceWidth;
-
-            imageFilledArc(
+            
+            // imageSmoothArc() uses a different color format: [$r, $g, $b, $a].
+            $color = array(
+                $slice['color'] >> 16 & 0xFF,
+                $slice['color'] >> 8 & 0xFF,
+                $slice['color'] & 0xFF,
+                $slice['color'] >> 24 & 0xFF
+            );
+            
+            imageSmoothArc(
                 $this->image,
                 $pieCentreX,
                 $pieCentreY,
                 $pieDiameter,
                 $pieDiameter,
-                $sliceStart,
-                $sliceEnd,
-                $slice['color'],
-                IMG_ARC_PIE
+                $color,
+                deg2rad($sliceStart),
+                deg2rad($sliceEnd)
             );
-            
-            // Unfortunatley this function is just too inefficient!
-            // It also isn't compatible with the GD colour format...
-//            imageSmoothArc(
-//                $this->image,
-//                $pieCentreX,
-//                $pieCentreY,
-//                $pieDiameter,
-//                $pieDiameter,
-//                array(rand(0, 255), rand(0, 255), rand(0, 255), 0),
-//                $sliceStart,
-//                $sliceEnd
-//            );
-            
 
             // Move along to the next slice.
             $sliceStart = $sliceEnd;
