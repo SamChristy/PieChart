@@ -45,8 +45,8 @@ class PieChartGD {
         $this->image = imageCreateTrueColor($width, $height);
         
         // Feel free to change these to your favourite fonts...
-        $this->titleFont  = __DIR__ . '/../fonts/OpenSans-Semibold.ttf';
-        $this->legendFont = __DIR__ . '/../fonts/OpenSans-Regular.ttf';
+        $this->titleFont  = __DIR__ . '/../fonts/Open_Sans/OpenSans-Semibold.ttf';
+        $this->legendFont = __DIR__ . '/../fonts/Open_Sans/OpenSans-Regular.ttf';
 
         $this->textColor = imageColorAllocate($this->image, 34, 34, 34);
 

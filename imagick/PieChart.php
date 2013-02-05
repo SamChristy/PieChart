@@ -33,8 +33,8 @@ class PieChart {
         $this->hasLegend = true;
         $this->slices    = array();
         
-        $this->titleFont  = __DIR__ . '/../fonts/OpenSans-Semibold.ttf';
-        $this->legendFont = __DIR__ . '/../fonts/OpenSans-Regular.ttf';
+        $this->titleFont  = __DIR__ . '/../fonts/Open_Sans/OpenSans-Semibold.ttf';
+        $this->legendFont = __DIR__ . '/../fonts/Open_Sans/OpenSans-Regular.ttf';
 
         $this->textColor       = new ImagickPixel('#222');
         $this->backgroundColor = new ImagickPixel('#FFF');
