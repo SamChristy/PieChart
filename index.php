@@ -5,12 +5,12 @@ $title = 'Browser Usage Statistics (January - April)';
 
 if (extension_loaded('imagick'))
 {
-    require 'imagick/PieChart.php';
-    $chart = new PieChart($width, $height);
+    require 'PieChartImagick.php';
+    $chart = new PieChartImagick($width, $height);
 }
 else
 {
-    require 'gd/PieChartGD.php';
+    require 'PieChartGD.php';
     $chart = new PieChartGD($width, $height);    
 }
 

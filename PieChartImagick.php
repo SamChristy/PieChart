@@ -6,7 +6,7 @@
  *
  * Super cool pie chart drawing class that uses ImageMagick because it's superior to GD!
  */
-class PieChart {
+class PieChartImagick extends PieChart {
     protected $slices;
     protected $width;
     protected $height;

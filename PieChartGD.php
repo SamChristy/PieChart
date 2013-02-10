@@ -1,138 +1,36 @@
 <?php
-include '/../lib/imageSmoothArc.php';
+include 'PieChart.php';
+include 'lib/imageSmoothArc.php';
 
 /**
- * Super cool pie chart drawing class that uses GD, despite the fact that it's inferior 
- * to ImageMagick...
+ * GD version of the PieChart class.
  * 
- * <b>Reasons to dislike GD:</b>
- * <ul>
- * <li>No anti-aliasing</li>
- * <li>No font pre-loading</li>
- * <li>Procedural interface</li>
- * </ul>
+ * @author    Sam Christy <sam_christy@hotmail.co.uk>
+ * @licence   GNU GPL v3.0 <http://www.gnu.org/licenses/gpl-3.0.html>
+ * @copyright © Sam Christy 2013 onwards
+ * @package   PieChart
  */
-class PieChartGD {
-// TODO: Add anti-aliasing for GD.
-    const POSITION_LEFT = 0;
-    const POSITION_TOP = 1;
-    const POSITION_RIGHT = 2;
-    const POSITION_BOTTOM = 3;
-
-    protected $slices;
-    protected $width;
-    protected $height;
-    protected $title;
-    protected $image;
-    protected $hasLegend;
-    protected $titleFont;
-    protected $legendFont;
-    protected $textColor;
-
-    /** 
-     * Constructs the PieChart.
-     * @param int    $width  The width of the chart, in pixels.
-     * @param int    $height The chart's height, in pixels.
-     * @param string $title  The chart's title.
-     */
-    public function __construct($width = 0, $height = 0, $title = '') {
-        $this->width  = $width;
-        $this->height = $height;
-        $this->title  = $title;
-
-        $this->hasLegend = true;
-        $this->slices = array();
-        $this->image = imageCreateTrueColor($width, $height);
-        
-        // Feel free to change these to your favourite fonts...
-        $this->titleFont  = __DIR__ . '/../fonts/Open_Sans/OpenSans-Semibold.ttf';
-        $this->legendFont = __DIR__ . '/../fonts/Open_Sans/OpenSans-Regular.ttf';
-
-        $this->textColor = imageColorAllocate($this->image, 34, 34, 34);
-
-        // Set anti-aliasing for the pie chart.
-        imageAntiAlias($this->image, true);
-
-        $bgColor = imageColorAllocate($this->image, 255, 255, 255);
-        //imageFilledRectangle($this->image, 1, 1, $width - 2, $height - 2, $bgColor);
-        imageFilledRectangle($this->image, 0, 0, $width, $height, $bgColor);
-        imageRectangle($this->image, 0, 0, $width - 1, $height - 1, $this->textColor);
-    }
-
-    /**
-     * Frees the memory that was allocated to the image. You must call this function to clean up
-     * after your pie chart once you're finished with it.
-     */
+class PieChartGD extends PieChart {
     public function destroy() {
-        imageDestroy($this->image);
+        imageDestroy($this->canvas);
     }
-
-    /**
-     * Sets the title's text. To remove a title, set the title to ''.
-     * @param string $title The title's text.
-     * @param string $titleFont [optional] The .ttf font file for the legend's font.
-     */
-    public function setTitle($title, $titleFont = NULL) {
-        $this->title = $title;
-        
-        if($titleFont)
-            $this->titleFont = $titleFont;
-    }
-
-    /**
-     * Add or remove the chart's legend (it's displayed default).
-     * @param bool $displayLegend Specify false to remove the legend or true to add one.
-     * @param string $legendFont [optional] The .ttf font file for the legend's font.
-     */
-    public function setLegend($displayLegend, $legendFont = NULL) {
-        $this->hasLegend = $displayLegend;
-        
-        if($legendFont)
-            $this->legendFont = $legendFont;
-    }
-
-    /**
-     * Adds a new slice to the pie. This function can also be used to modify the value of 
-     * existing slices. It is recommended that pie charts do not exceed 6 slices.
-     * @param string $name The name of the slice (used for legend label).
-     * @param float $value
-     * @param string $color The CSS colour, e.g. '#FFFFFF', 'rgb(255, 255, 255).
-     */
-    public function addSlice($name, $value, $color) {
-        
-        $processedColor = is_array($color) ? $color : PieChartGD::processColor($color);
-
-        $red   = $processedColor[0];
-        $green = $processedColor[1];
-        $blue  = $processedColor[2];
-
-        $this->slices[$name] = array(
-            'value' => $value,
-            'color' => imageColorAllocate($this->image, $red, $green, $blue)
-        );
-    }
-
-    /**
-     * Removes the specified slice.
-     * @param string $name The name of the slice to be removed.
-     */
+    
     public function removeSlice($name) {
         unset($this->slices[$name]);
     }
 
-    /**
-     * Sorts the slices by their values.
-     * @param bool [$sortByValues] True (default) to sort by values, false to sort by keys.
-     * @param bool [$descending] True (default) for descending order, false for ascending.
-     */
-    public function sortSlices($sortByValues = true, $descending = true) {
-        // TODO Write sortSlices()
-    }
-
-    /**
-     * Draws the chart so it is ready to be echoed to the client or saved.
-     */
     public function draw() {
+        $this->canvas = imageCreateTrueColor($this->width, $this->height);
+        $this->textColor = imageColorAllocate($this->canvas, 34, 34, 34);
+
+        // Set anti-aliasing for the pie chart.
+        imageAntiAlias($this->canvas, true);
+
+        $this->bgColor = imageColorAllocate($this->canvas, 255, 255, 255);
+        imageFilledRectangle($this->canvas, 0, 0, $this->width, $this->height, $this->bgColor);
+        imageRectangle($this->canvas, 0, 0, $this->width - 1, $this->height - 1, $this->textColor);
+        
+        
         $total = 0;
         $sliceStart = 90;  // Start at 12 o'clock.
 
@@ -163,21 +61,13 @@ class PieChartGD {
 
             $sliceEnd = $sliceStart + $sliceWidth;
             
-            // imageSmoothArc() uses a different color format: [$r, $g, $b, $a].
-            $color = array(
-                $slice['color'] >> 16 & 0xFF,
-                $slice['color'] >> 8 & 0xFF,
-                $slice['color'] & 0xFF,
-                $slice['color'] >> 24 & 0xFF
-            );
-            
             imageSmoothArc(
-                $this->image,
+                $this->canvas,
                 $pieCentreX,
                 $pieCentreY,
                 $pieDiameter,
                 $pieDiameter,
-                $color,
+                array_merge($slice['color'], array(0)),
                 deg2rad($sliceStart),
                 deg2rad($sliceEnd)
             );
@@ -187,8 +77,6 @@ class PieChartGD {
         }
     }
 
-    // TODO Decide what I want to do with file extensions with the outputting functions.
-    
     /**
      * Echos the chart in the PNG format, with the correct headers set to display in a browser.
      * @param string $filename [optional] The filename for the picture.
@@ -198,7 +86,7 @@ class PieChartGD {
         header('Content-Type: image/png');
         header("Content-Disposition: inline; filename=\"$filename.png\"");
 
-        return imagePNG($this->image);
+        return imagePNG($this->canvas);
     }
 
     /**
@@ -207,14 +95,13 @@ class PieChartGD {
      * @param string [$filename] An optional filename for the picture.
      * @return bool The success of the operation.
      */
-    public function forceDownloadPNG($filename = 'pie-chart') {
-        // TODO Find out which 'Content-Type' I really should be using for forceDownloadPNG.
-        
-//        header('Content-Type: application/octet-stream');
-        header('Content-Type: image/png');
-        header("Content-Disposition: attachment; filename=\"$filename\"");
+    public function forceDownloadPNG($filename = 'pie-chart.png') {
+        header("Pragma: public");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="'.$filename.'"');
 
-        return imagePNG($this->image);
+        return imagePNG($this->canvas);
     }
 
     /**
@@ -338,13 +225,15 @@ class PieChartGD {
         $labelHeight = abs($labelBBox[7] - $labelBBox[1]);
 
         $labelY = $y + $squareSize / 2 - $labelHeight / 2;
-
+        
+        $color = imageColorAllocate($this->canvas, $color[0], $color[1], $color[2]);
+        
         imageFilledRectangle(
-           $this->image, $x, $y, $x + $squareSize, $y + $squareSize, $color
+           $this->canvas, $x, $y, $x + $squareSize, $y + $squareSize, $color
         );
 
         imageTTFText(
-            $this->image,
+            $this->canvas,
             $fontSize,
             0,
             $labelX + abs($labelBBox[0]), // Eliminate left overhang.
@@ -383,7 +272,7 @@ class PieChartGD {
         if (!$this->title)
             return 0;
 
-        $titleColor = imageColorAllocate($this->image, 34, 34, 34);
+        $titleColor = imageColorAllocate($this->canvas, 34, 34, 34);
 
         // Determine ideal font size for the title.
         $titleSize = 0.0675 * $this->height;  // The largest sensible value.
@@ -416,7 +305,7 @@ class PieChartGD {
         $y = $titleTopPadding;
 
         imageTtfText(
-            $this->image, $titleSize, 
+            $this->canvas, $titleSize, 
             0,
             $x + abs($titleBBox[0]),  // Account for left overhang.
             $y + abs($titleBBox[7]),  // Account for the area above the baseline.
