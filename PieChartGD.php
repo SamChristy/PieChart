@@ -21,15 +21,12 @@ class PieChartGD extends PieChart {
 
     public function draw() {
         $this->canvas = imageCreateTrueColor($this->width, $this->height);
-        $this->textColor = imageColorAllocate($this->canvas, 34, 34, 34);
 
         // Set anti-aliasing for the pie chart.
         imageAntiAlias($this->canvas, true);
 
-        $this->bgColor = imageColorAllocate($this->canvas, 255, 255, 255);
-        imageFilledRectangle($this->canvas, 0, 0, $this->width, $this->height, $this->bgColor);
-        imageRectangle($this->canvas, 0, 0, $this->width - 1, $this->height - 1, $this->textColor);
-        
+        imageFilledRectangle($this->canvas, 0, 0, $this->width, $this->height,
+                $this->_convertColor($this->backgroundColor));
         
         $total = 0;
         $sliceStart = 90;  // Start at 12 o'clock.
@@ -67,7 +64,7 @@ class PieChartGD extends PieChart {
                 $pieCentreY,
                 $pieDiameter,
                 $pieDiameter,
-                array_merge($slice['color'], array(0)),
+                [$slice['color']->r, $slice['color']->g, $slice['color']->b, 0],
                 deg2rad($sliceStart),
                 deg2rad($sliceEnd)
             );
@@ -108,43 +105,8 @@ class PieChartGD extends PieChart {
      * Saves the chart in the specified location, in the PNG format.
      * @return bool The success of the operation.
      */
-    public function savePNG($filename) {
-        return imagePNG($this->image, "$filename.png");
-    }
-    
-    /**
-     * Turns a CSS colour format, e.g. '#FFFFFF', '#fff', 'rgb(255, 255, 255)', etc. into an 
-     * array of colours. This is a utility function and can be used outside of the class.
-     * @param string $color The colour in a CSS format.
-     * @return array array(red, green, blue)
-     */
-    public static function processColor($color) {
-        $length = strLen($color);
-        $red = $green = $blue = 0;
-
-        if ($length == 7) {
-            // e.g. '#FFFFFF'.
-            $red   = hexDec(subStr($color, 1, 2));
-            $green = hexDec(subStr($color, 3, 2));
-            $blue  = hexDec(subStr($color, 5, 2));
-            
-        } else if ($length == 4) {
-            // e.g. '#FFF'.
-            $red   = hexDec(subStr($color, 1, 1)) * 17;
-            $green = hexDec(subStr($color, 2, 1)) * 17;
-            $blue  = hexDec(subStr($color, 3, 1)) * 17;
-            
-        } else if (strToLower(subStr($color, 0, 4)) == 'rgb(') {
-            // e.g. 'rgb(255, 255, 255)'.
-            $listOfColors  = subStr($color, 4, -1);
-            $arrayOfColors = explode(',', $listOfColors);
-
-            $red   = intVal($arrayOfColors[0]);
-            $green = intVal($arrayOfColors[1]);
-            $blue  = intVal($arrayOfColors[2]);
-        }
-
-        return array($red, $green, $blue);
+    public function savePNG($filename = 'pie-chart.php') {
+        return imagePNG($this->image, "$filename");
     }
 
     /**
@@ -226,10 +188,8 @@ class PieChartGD extends PieChart {
 
         $labelY = $y + $squareSize / 2 - $labelHeight / 2;
         
-        $color = imageColorAllocate($this->canvas, $color[0], $color[1], $color[2]);
-        
         imageFilledRectangle(
-           $this->canvas, $x, $y, $x + $squareSize, $y + $squareSize, $color
+           $this->canvas, $x, $y, $x + $squareSize, $y + $squareSize, $this->_convertColor($color)
         );
 
         imageTTFText(
@@ -238,7 +198,7 @@ class PieChartGD extends PieChart {
             0,
             $labelX + abs($labelBBox[0]), // Eliminate left overhang.
             $labelY + abs($labelBBox[7]), // Eliminate area above the baseline.
-            $this->textColor,
+            $this->_convertColor($this->textColor),
             $this->legendFont,
             $label
         );
@@ -268,11 +228,11 @@ class PieChartGD extends PieChart {
      * specified, then nothing is drawn and 0 is returned.
      * @return int The height of the title + padding.
      */
-    protected function _drawTitle($x = 0, $y = 0, $orientation = 0) {
+    protected function _drawTitle($x = 0, $y = 0) {
         if (!$this->title)
             return 0;
 
-        $titleColor = imageColorAllocate($this->canvas, 34, 34, 34);
+        $titleColor = $this->_convertColor($this->textColor);
 
         // Determine ideal font size for the title.
         $titleSize = 0.0675 * $this->height;  // The largest sensible value.
@@ -316,5 +276,14 @@ class PieChartGD extends PieChart {
 
         return $titleHeight + $titleTopPadding;
     }
-
+    
+    /**
+     * A convenience function for converting PieChartColor objects to the format
+     * that GD requires.
+     */
+    private function _convertColor(PieChartColor $color) {
+        // Interestingly, GD uses the ARGB format internally, so 
+        // PieChartColor::toInt() would actually work for everything but GIFs...
+        return imageColorAllocate($this->canvas, $color->r, $color->g, $color->b);
+    }
 }
