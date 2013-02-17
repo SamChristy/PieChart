@@ -1,4 +1,6 @@
 <?php
+include 'PieChart.php';
+
 /**
  * @author      Sam Christy <sam_christy@hotmail.co.uk>
  * @licence     GNU GPL v3.0 <http://www.gnu.org/licenses/gpl-3.0.html>
@@ -7,109 +9,13 @@
  * Super cool pie chart drawing class that uses ImageMagick because it's superior to GD!
  */
 class PieChartImagick extends PieChart {
-    protected $slices;
-    protected $width;
-    protected $height;
-    protected $title;
-    protected $canvas;
-    protected $hasLegend;
-    protected $titleFont;
-    protected $legendFont;
-    protected $textColor;
-    protected $backgroundColor;
-
-    /** 
-     * Constructs the PieChart.
-     * @param int    $width  The width of the chart, in pixels.
-     * @param int    $height The chart's height, in pixels.
-     * @param string $title  The chart's title.
-     */
-    public function __construct($width = 0, $height = 0, $title = '') {
-        $this->width  = $width;
-        $this->height = $height;
-        $this->title  = $title;
-        
-        // Set the default values;
-        $this->hasLegend = true;
-        $this->slices    = array();
-        
-        $this->titleFont  = __DIR__ . '/../fonts/Open_Sans/OpenSans-Semibold.ttf';
-        $this->legendFont = __DIR__ . '/../fonts/Open_Sans/OpenSans-Regular.ttf';
-
-        $this->textColor       = new ImagickPixel('#222');
-        $this->backgroundColor = new ImagickPixel('#FFF');
-        
-        $this->canvas = new Imagick;
-    }
-
-    /**
-     * Frees the memory that was allocated to the image. You must call this function to clean up
-     * after your pie chart once you're finished with it.
-     */
     public function destroy() {
         $this->canvas->destroy();
     }
 
-    /**
-     * Sets the title's text. To remove a title, set the title to ''.
-     * @param string $title
-     * @param string $titleFont [optional] The path the .ttf font file for the title.
-     */
-    public function setTitle($title, $titleFont = NULL) {
-        $this->title = $title;
-        
-        if($titleFont)
-            $this->titleFont = $titleFont;
-    }
-
-    /**
-     * Add or remove the chart's legend (it's displayed default).
-     * @param bool $displayLegend Specify false to remove the legend or true to add one.
-     * @param string $legendFont [optional] The path the .ttf font file for the legend's text.
-     */
-    public function setLegend($displayLegend, $legendFont = NULL) {
-        $this->hasLegend = $displayLegend;
-        
-        if($legendFont)
-            $this->legendFont = $legendFont;
-    }
-
-    /**
-     * Adds a new slice to the pie. This function can also be used to modify the value of 
-     * existing slices. It is recommended that pie charts do not exceed 6 slices.
-     * @param string $name The name of the slice (used for legend label).
-     * @param float $value
-     * @param string $color The CSS colour, e.g. '#FFFFFF', 'rgb(255, 255, 255).
-     */
-    public function addSlice($name, $value, $color) {
-        $this->slices[$name] = array(
-            'value' => $value,
-            'color' => new ImagickPixel($color)
-        );
-    }
-
-    /**
-     * Removes the specified slice.
-     * @param string $name The name of the slice to be removed.
-     */
-    public function removeSlice($name) {
-        unset($this->slices[$name]);
-    }
-
-    /**
-     * Sorts the slices by their values.
-     * @param bool [$sortByValues] True (default) to sort by values, false to sort by keys.
-     * @param bool [$descending] True (default) for descending order, false for ascending.
-     */
-    public function sortSlices($sortByValues = true, $descending = true) {
-        // TODO Write sortSlices()
-    }
-
-    /**
-     * Draws the chart so it is ready to be echoed to the client or saved.
-     */
     public function draw() {
-        $this->canvas->newImage($this->width, $this->height, $this->backgroundColor);
+        $this->canvas = new Imagick;
+        $this->canvas->newImage($this->width, $this->height, $this->backgroundColor->toHex());
         
         $total = 0;
         $sliceStart = -90;  // Start at 12 o'clock.
@@ -155,11 +61,6 @@ class PieChartImagick extends PieChart {
         }
     }
 
-    /**
-     * Echos the chart in the PNG format, with the correct headers set to display in a browser.
-     * @param string $filename [optional] The filename for the picture.
-     * @return bool The success of the operation.
-     */
     public function outputPNG($filename = 'pie-chart.png') {
         header('Content-Type: image/png');
         header("Content-Disposition: inline; filename=\"$filename\"");
@@ -168,12 +69,6 @@ class PieChartImagick extends PieChart {
         echo $this->canvas;
     }
 
-    /**
-     * Echos the chart in the PNG format, the headers are set to force a download rather than be
-     * displayed by the browser.
-     * @param string [$filename] An optional filename for the picture.
-     * @return bool The success of the operation.
-     */
     public function forceDownloadPNG($filename = 'pie-chart.png') {
         header('Content-Type: image/png');
         header("Content-Disposition: attachment; filename=\"$filename\"");
@@ -182,10 +77,6 @@ class PieChartImagick extends PieChart {
         echo $this->canvas;
     }
 
-    /**
-     * Saves the chart in the specified location, in the PNG format.
-     * @return bool The success of the operation.
-     */
     public function savePNG($filename) {
         return $this->canvas->writeImage($filename);
     }
@@ -236,7 +127,7 @@ class PieChartImagick extends PieChart {
         $labelSettings = new ImagickDraw;
         
         $labelSettings->setFont($this->legendFont);
-        $labelSettings->setFillColor($this->textColor);
+        $labelSettings->setFillColor($this->textColor->toHex());
         $labelSettings->setFontSize($legendFontSize);
         $labelSettings->setGravity(Imagick::GRAVITY_NORTHWEST);
         
@@ -250,7 +141,7 @@ class PieChartImagick extends PieChart {
             
             // 1. Draw the key's colour square.
             $keySquare = new ImagickDraw;
-            $keySquare->setFillColor($slice['color']);
+            $keySquare->setFillColor($slice['color']->toHex());
             $keySquare->rectangle(
                 $keyPosX,
                 $keyPosY,
@@ -283,6 +174,7 @@ class PieChartImagick extends PieChart {
 
         // 1. Drawn the curved part.
         $arc = new ImagickDraw;
+        $color = $color->toHex();
         
         $arc->setFillColor($color);
         $arc->setStrokeColor($color);
@@ -360,7 +252,7 @@ class PieChartImagick extends PieChart {
         $titleSettings = new ImagickDraw;
 
         $titleSettings->setFont($this->titleFont);
-        $titleSettings->setFillColor($this->textColor);
+        $titleSettings->setFillColor($this->textColor->toHex());
         $titleSettings->setGravity(Imagick::GRAVITY_NORTH);
 
         // Determine ideal font size for the title.
