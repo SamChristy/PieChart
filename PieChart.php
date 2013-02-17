@@ -258,6 +258,6 @@ class PieChartColor {
      * @return string
      */
     public function toHex() {
-        return '#' . decHex($this->toInt());
+        return sprintf('#%02s%02s%02s', decHex($this->r), decHex($this->g), decHex($this->b));
     }
 }
