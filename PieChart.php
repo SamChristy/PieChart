@@ -19,17 +19,21 @@ abstract class PieChart {
 
     /** 
      * Constructs the PieChart.
-     * @param int    $width  The width of the chart, in pixels.
-     * @param int    $height The chart's height, in pixels.
-     * @param string $title  The chart's title.
+     * @param int $width The width of the chart, in pixels.
+     * @param int $height The chart's height, in pixels.
+     * @param string [$title] The chart's title.
+     * @param string|int|array [$textColor] The colour of the title and labels.
+     * @param string|int|array [$backgroundColor] 
      */
-    public function __construct($width = 0, $height = 0, $title = '') {
+    public function __construct($width = 0, $height = 0, $title = '', $textColor = 0x222222,
+            $backgroundColor = 0xffffff) {
         $this->width  = $width;
         $this->height = $height;
         $this->title  = $title;
-
         $this->hasLegend = true;
         $this->slices = array();
+        $this->textColor = new PieChartColor($textColor);
+        $this->backgroundColor = new PieChartColor($backgroundColor);
         
         // Feel free to change these to your favourite fonts...
         $this->titleFont  = __DIR__ . '/fonts/Open_Sans/OpenSans-Semibold.ttf';
@@ -77,7 +81,7 @@ abstract class PieChart {
     public function addSlice($name, $value, $color) {
         $this->slices[$name] = array(
             'value' => $value,
-            'color' => $this->processColor($color)
+            'color' => new PieChartColor($color)
         );
     }
 
