@@ -94,18 +94,6 @@ abstract class PieChart {
     }
 
     /**
-     * Sorts the slices by their...
-     */
-    public function sortSlices() {
-        kSort($this->slices);
-        
-        uaSort($this->slices, function ($a, $b){
-                return ($a['value'] > $b['value']);
-            }
-        );
-    }
-
-    /**
      * Draws the chart so it is ready to be echoed to the client or saved.
      */
     public function draw() {}
