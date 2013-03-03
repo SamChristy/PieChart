@@ -4,8 +4,8 @@ PieChart
 A reasonably efficient* class for drawing pie charts with ImageMagick or GD in PHP. Intended as a 
 learning exercise for using the NetBeans IDE and the Xdebug profiler and debugger. The code is 
 available under the [GNU GPL v3.0](http://www.gnu.org/licenses/gpl-3.0.html), so feel free to use it
-with attribution. I recommend using the Imagick version, `imagick/PieChart.php` over the GD version,
- `gd/PieChart.php`.
+with attribution. I recommend using the Imagick version, `PieChartImagick` over the GD version,
+ `PieChartGD`.
 
 ### Demonstration ###
 Below is the code required to generate a pie chart and echo it to the client's browser. The example 
@@ -15,13 +15,13 @@ uses the method `outputPNG()` to tell the browser to render the image. Alternati
 #### Code ####
 ````php
 <?php
-include 'imagick/PieChart.php';
+require 'PieChartImagick.php';
 
 $width  = 600;
 $height = 375;
 $title = 'Browser Usage Statistics (January - April)';
-
-$chart = new PieChart($width, $height);
+ 
+$chart = new PieChartImagick($width, $height);
 
 $chart->setTitle($title, 'fonts/Oswald/Oswald-Regular.ttf');
 
