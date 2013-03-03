@@ -68,17 +68,46 @@ class PieChartImagick extends PieChart {
         $this->canvas->setImageFormat('png');
         echo $this->canvas;
     }
-
-    public function forceDownloadPNG($filename = 'pie-chart.png') {
-        header('Content-Type: image/png');
-        header("Content-Disposition: attachment; filename=\"$filename\"");
-
-        $this->canvas->setImageFormat('png');
-        echo $this->canvas;
-    }
-
-    public function savePNG($filename) {
-        return $this->canvas->writeImage($filename);
+    
+    protected function _output($method, $format, $filename) {
+        switch ($format) {
+            case parent::FORMAT_GIF:
+                $this->canvas->setImageFormat('gif');
+                
+                if ($method == parent::OUTPUT_INLINE || $method == parent::OUTPUT_DOWNLOAD) {
+                    return print $this->canvas;
+                }
+                else if ($method == parent::OUTPUT_SAVE) {
+                    return $this->canvas->writeImage($filename);
+                }
+                break;
+                
+            case parent::FORMAT_JPEG:
+                $this->canvas->setImageFormat('jpeg');
+                $this->canvas->setImageCompression(imagick::COMPRESSION_JPEG);
+                $this->canvas->setImageCompressionQuality($this->quality);
+                
+                if ($method == parent::OUTPUT_INLINE || $method == parent::OUTPUT_DOWNLOAD) {
+                    return print $this->canvas;
+                }
+                else if ($method == parent::OUTPUT_SAVE) {
+                    return $this->canvas->writeImage($filename);
+                }
+                break;
+            
+            case parent::FORMAT_PNG:
+                $this->canvas->setImageFormat('png');
+                
+                if ($method == parent::OUTPUT_INLINE || $method == parent::OUTPUT_DOWNLOAD) {
+                    return print $this->canvas;
+                }
+                else if ($method == parent::OUTPUT_SAVE) {
+                    return $this->canvas->writeImage($filename);
+                }
+                break;
+        }
+        
+        return false;  // The output method or format is missing!
     }
 
     /**
