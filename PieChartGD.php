@@ -64,7 +64,7 @@ class PieChartGD extends PieChart {
                 $pieCentreY,
                 $pieDiameter,
                 $pieDiameter,
-                [$slice['color']->r, $slice['color']->g, $slice['color']->b, 0],
+                array($slice['color']->r, $slice['color']->g, $slice['color']->b, 0),
                 deg2rad($sliceStart),
                 deg2rad($sliceEnd)
             );
