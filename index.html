@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Piechart by SamChristy</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>Piechart</h1>
+        <p>A simple class for drawing Pie Charts with ImageMagick or GD in PHP.</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/SamChristy/PieChart" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/SamChristy/PieChart/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/SamChristy/PieChart/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h1>PieChart</h1>
+
+<p>A reasonably efficient* class for drawing pie charts with ImageMagick or GD in PHP. Intended as a 
+learning exercise for using the NetBeans IDE and the Xdebug profiler and debugger. The code is 
+available under the <a href="http://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3.0</a>, so feel free to use it
+with attribution. I recommend using the Imagick version, <code>PieChartImagick</code> over the GD version,
+ <code>PieChartGD</code>.</p>
+
+<h3>Demonstration</h3>
+
+<p>Below is the code required to generate a pie chart and echo it to the client's browser. The example 
+uses the method <code>outputPNG()</code> to tell the browser to render the image. Alternatively, the function 
+<code>forceDownloadPNG()</code> can be used to instruct the browser to bring up the save dialog.</p>
+
+<h3>Documentation</h3>
+
+<p>Coming with the v1.2 release, soon...</p>
+
+<h4>Code</h4>
+
+<div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">require</span> <span class="s1">'PieChartImagick.php'</span><span class="p">;</span>
+
+<span class="nv">$width</span>  <span class="o">=</span> <span class="mi">600</span><span class="p">;</span>
+<span class="nv">$height</span> <span class="o">=</span> <span class="mi">375</span><span class="p">;</span>
+<span class="nv">$title</span> <span class="o">=</span> <span class="s1">'Browser Usage Statistics (January - April)'</span><span class="p">;</span>
+
+<span class="nv">$chart</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PieChartImagick</span><span class="p">(</span><span class="nv">$width</span><span class="p">,</span> <span class="nv">$height</span><span class="p">);</span>
+
+<span class="nv">$chart</span><span class="o">-&gt;</span><span class="na">setTitle</span><span class="p">(</span><span class="nv">$title</span><span class="p">,</span> <span class="s1">'fonts/Oswald/Oswald-Regular.ttf'</span><span class="p">);</span>
+
+<span class="nv">$chart</span><span class="o">-&gt;</span><span class="na">addSlice</span><span class="p">(</span><span class="s1">'Google Chrome'</span><span class="p">,</span>   <span class="mi">27</span><span class="p">,</span> <span class="s1">'#4A7EBB'</span><span class="p">);</span>
+<span class="nv">$chart</span><span class="o">-&gt;</span><span class="na">addSlice</span><span class="p">(</span><span class="s1">'Mozilla Firefox'</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="s1">'#DA8137'</span><span class="p">);</span>
+<span class="nv">$chart</span><span class="o">-&gt;</span><span class="na">addSlice</span><span class="p">(</span><span class="s1">'Apple Safari'</span><span class="p">,</span>    <span class="mi">11</span><span class="p">,</span> <span class="s1">'#9BBB59'</span><span class="p">);</span>
+<span class="nv">$chart</span><span class="o">-&gt;</span><span class="na">addSlice</span><span class="p">(</span><span class="s1">'Opera'</span><span class="p">,</span>            <span class="mi">3</span><span class="p">,</span> <span class="s1">'#BE4B48'</span><span class="p">);</span>
+<span class="nv">$chart</span><span class="o">-&gt;</span><span class="na">addSlice</span><span class="p">(</span><span class="s1">'Other'</span><span class="p">,</span>            <span class="mi">5</span><span class="p">,</span> <span class="s1">'#7D60A0'</span><span class="p">);</span>
+
+<span class="nv">$chart</span><span class="o">-&gt;</span><span class="na">draw</span><span class="p">();</span>
+<span class="nv">$chart</span><span class="o">-&gt;</span><span class="na">outputPNG</span><span class="p">(</span><span class="s1">'Browser Statistics 2012 Q1.png'</span><span class="p">);</span>
+</pre></div>
+
+<h4>Output</h4>
+
+<p><img src="example.png" alt="Pie Chart"></p>
+
+<p>*This example took 150ms to execute on my laptop (i3-350M @ 2.27 GHz).</p>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/SamChristy">SamChristy</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
