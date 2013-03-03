@@ -73,40 +73,38 @@ class PieChartGD extends PieChart {
             $sliceStart = $sliceEnd;
         }
     }
-
-    /**
-     * Echos the chart in the PNG format, with the correct headers set to display in a browser.
-     * @param string $filename [optional] The filename for the picture.
-     * @return bool The success of the operation.
-     */
-    public function outputPNG($filename = 'pie-chart') {
-        header('Content-Type: image/png');
-        header("Content-Disposition: inline; filename=\"$filename.png\"");
-
-        return imagePNG($this->canvas);
-    }
-
-    /**
-     * Echos the chart in the PNG format, the headers are set to force a download rather than be
-     * displayed by the browser.
-     * @param string [$filename] An optional filename for the picture.
-     * @return bool The success of the operation.
-     */
-    public function forceDownloadPNG($filename = 'pie-chart.png') {
-        header("Pragma: public");
-        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-        header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename="'.$filename.'"');
-
-        return imagePNG($this->canvas);
-    }
-
-    /**
-     * Saves the chart in the specified location, in the PNG format.
-     * @return bool The success of the operation.
-     */
-    public function savePNG($filename = 'pie-chart.php') {
-        return imagePNG($this->image, "$filename");
+    
+    protected function _output($method, $format, $filename) {
+        switch ($format) {
+            case parent::FORMAT_GIF:
+                if ($method == parent::OUTPUT_INLINE || $method == parent::OUTPUT_DOWNLOAD) {
+                    return imageGIF($this->canvas);
+                }
+                else if ($method == parent::OUTPUT_SAVE) {
+                    return imageGIF($this->canvas, $filename);
+                }
+                break;
+                
+            case parent::FORMAT_JPEG:
+                if ($method == parent::OUTPUT_INLINE || $method == parent::OUTPUT_DOWNLOAD) {
+                    return imageJPEG($this->canvas, NULL, $this->quality);
+                }
+                else if ($method == parent::OUTPUT_SAVE) {
+                    return imageJPEG($this->canvas, $filename, $this->quality);
+                }
+                break;
+            
+            case parent::FORMAT_PNG:
+                if ($method == parent::OUTPUT_INLINE || $method == parent::OUTPUT_DOWNLOAD) {
+                    return imagePNG($this->canvas);
+                }
+                else if ($method == parent::OUTPUT_SAVE) {
+                    return imagePNG($this->canvas, $filename);
+                }
+                break;
+        }
+        
+        return false;  // The output method or format is missing!
     }
 
     /**
