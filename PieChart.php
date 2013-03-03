@@ -6,6 +6,13 @@
  * @author Sam
  */
 abstract class PieChart {
+    const FORMAT_GIF = 1;
+    const FORMAT_JPEG = 2;
+    const FORMAT_PNG = 3;
+    const OUTPUT_DOWNLOAD = 1;
+    const OUTPUT_INLINE = 2;
+    const OUTPUT_SAVE = 3;
+    
     protected $slices;
     protected $width;
     protected $height;
@@ -16,6 +23,7 @@ abstract class PieChart {
     protected $textColor;
     protected $backgroundColor;
     protected $canvas;
+    protected $quality;
 
     /** 
      * Constructs the PieChart.
@@ -32,6 +40,7 @@ abstract class PieChart {
         $this->title  = $title;
         $this->hasLegend = true;
         $this->slices = array();
+        $this->quality = 100;
         $this->textColor = new PieChartColor($textColor);
         $this->backgroundColor = new PieChartColor($backgroundColor);
         
@@ -71,6 +80,14 @@ abstract class PieChart {
     }
 
     /**
+     * Set the quality for generating output in lossy formats.
+     * @param int $quality An integer between 0 and 100 (inclusive).
+     */
+    public function setOutputQuality($quality) {
+        $this->quality = $quality;
+    }
+    
+    /**
      * Adds a new slice to the pie. This function can also be used to modify the
      * value of existing slices. It is recommended that pie charts do not exceed
      * 6 slices.
@@ -97,57 +114,120 @@ abstract class PieChart {
      * Draws the chart so it is ready to be echoed to the client or saved.
      */
     public function draw() {}
-
-    public function output($filename, $format) {
-        
-    }
     
-    public function forceDownload($filename, $format) {
-        $extension = strToLower(pathInfo($filename, PATHINFO_EXTENSION));
-        
-        switch ($extension) {
-            case 'jpeg':
-            case 'jpg':
-                
-                break;
-            
-            case 'png':
-
-                break;
-
-            case 'gif':
-                
-                break;
-            
-            default:
-                return false;
-        }
-    }
+    /**
+     * For child classes to override, so that the output functions work.
+     * @param int $method
+     * @param int $format
+     * @param string $filename
+     */
+    protected function _output($method, $format, $filename) {}
     
-    public function save($filename, $format) {
-        
+    /**
+     * Echos the chart as a GIF and instructs the browser to display it inline.
+     * @param string [$filename] The filename for the picture.
+     * @return bool The success of the operation.
+     */
+    public function outputGIF($filename = 'pie-chart.gif') {
+        header('Content-Type: image/gif');
+        header("Content-Disposition: inline; filename=\"$filename\"");
+        $this->_output(self::OUTPUT_INLINE, self::FORMAT_GIF, $filename);
     }
     
     /**
-     * Echos the chart in the PNG format, with the correct headers set to display in a browser.
-     * @param string $filename [optional] The filename for the picture.
+     * Echos the chart as a JPEG and instructs the browser to display it inline.
+     * @param string [$filename] The filename for the picture.
      * @return bool The success of the operation.
      */
-    public function outputPNG($filename = 'pie-chart.png') {}
+    public function outputJPEG($filename = 'pie-chart.jpg') {
+        header('Content-Type: image/jpeg');
+        header("Content-Disposition: inline; filename=\"$filename\"");
+        $this->_output(self::OUTPUT_INLINE, self::FORMAT_JPEG, $filename);
+    }
+    
+    /**
+     * Echos the chart as a PNG and instructs the browser to display it inline.
+     * @param string [$filename] The filename for the picture.
+     * @return bool The success of the operation.
+     */
+    public function outputPNG($filename = 'pie-chart.png') {
+        header('Content-Type: image/png');
+        header("Content-Disposition: inline; filename=\"$filename\"");
+        
+        return $this->_output(self::OUTPUT_INLINE, self::FORMAT_PNG, $filename);
+    }
 
     /**
-     * Echos the chart in the PNG format, the headers are set to force a download rather than be
-     * displayed by the browser.
-     * @param string [$filename] An optional filename for the picture.
+     * Echos the chart as a GIF and instructs the browser to force the user to
+     * save it.
+     * @param string [$filename] The filename for the picture.
      * @return bool The success of the operation.
      */
-    public function forceDownloadPNG($filename = 'pie-chart.png') {}
+    public function forceDownloadGIF($filename = 'pie-chart.gif') {
+        header("Pragma: public");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="'.$filename.'"');
+        
+        return $this->_output(self::OUTPUT_INLINE, self::FORMAT_GIF, $filename);
+    }
+    
+    /**
+     * Echos the chart as a JPEG and instructs the browser to force the user to
+     * save it.
+     * @param string [$filename] The filename for the picture.
+     * @return bool The success of the operation.
+     */
+    public function forceDownloadJPEG($filename = 'pie-chart.jpg') {
+        header("Pragma: public");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="'.$filename.'"');
+        
+        return $this->_output(self::OUTPUT_INLINE, self::FORMAT_JPEG, $filename);
+    }
+    
+    /**
+     * Echos the chart as a PNG and instructs the browser to force the user to
+     * save it.
+     * @param string [$filename] The filename for the picture.
+     * @return bool The success of the operation.
+     */
+    public function forceDownloadPNG($filename = 'pie-chart.png') {
+        header("Pragma: public");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="'.$filename.'"');
+        
+        return $this->_output(self::OUTPUT_DOWNLOAD, self::FORMAT_PNG, $filename);
+    }
 
     /**
-     * Saves the chart in the specified location, in the PNG format.
-     * @return bool The success of the operation.
+     * Saves the chart as a GIF, in the specified location.
+     * @param string $filename
+     * @return int The success of the operation.
      */
-    public function savePNG($filename) {}
+    public function saveGIF($filename) {
+        return $this->_output(self::OUTPUT_SAVE, self::FORMAT_GIF, $filename);
+    }
+    
+    /**
+     * Saves the chart as a JPEG, in the specified location.
+     * @param string $filename
+     * @return int The success of the operation.
+     */
+    public function saveJPEG($filename) {
+        return $this->_output(self::OUTPUT_SAVE, self::FORMAT_JPEG, $filename);
+    }
+    
+    /**
+     * Saves the chart as a PNG, in the specified location.
+     * @param string $filename
+     * @return int The success of the operation.
+     */
+    public function savePNG($filename) {
+        $this->_output(self::OUTPUT_SAVE, self::FORMAT_PNG, $filename);
+    }
 }
 
 /**
