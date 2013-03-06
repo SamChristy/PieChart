@@ -2,11 +2,12 @@
 include 'PieChart.php';
 
 /**
- * @author      Sam Christy <sam_christy@hotmail.co.uk>
- * @licence     GNU GPL v3.0 <http://www.gnu.org/licenses/gpl-3.0.html>
- * @copyright   Sam Christy 2012 | All rights reserved (c)
- *
- * Super cool pie chart drawing class that uses ImageMagick because it's superior to GD!
+ * A lightweight class for drawing pie charts, using the ImageMagick library.
+ * @author    Sam Christy <sam_christy@hotmail.co.uk>
+ * @licence   GNU GPL v3.0 <http://www.gnu.org/licenses/gpl-3.0.html>
+ * @copyright © Sam Christy 2013
+ * @package   PieChart
+ * @version   v1.2
  */
 class PieChartImagick extends PieChart {
     public function destroy() {
@@ -113,7 +114,6 @@ class PieChartImagick extends PieChart {
     /**
      * Draws the legend for the pieChart, if $this->hasLegend is true.
      * @param int $legendOffset The number of pixels the legend is offset by the title.
-     * @param int $legendPadding The legend's padding, in pixels.
      * @return int The width of the legend and its padding.
      */
     protected function _drawLegend($legendOffset) {
@@ -315,5 +315,4 @@ class PieChartImagick extends PieChart {
 
         return $titleHeight + $titleTopPadding;
     }
-
 }

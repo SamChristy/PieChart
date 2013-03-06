@@ -3,12 +3,12 @@ include 'PieChart.php';
 include 'lib/imageSmoothArc.php';
 
 /**
- * GD version of the PieChart class.
- * 
+ * A lightweight class for drawing pie charts, using the GD library.
  * @author    Sam Christy <sam_christy@hotmail.co.uk>
  * @licence   GNU GPL v3.0 <http://www.gnu.org/licenses/gpl-3.0.html>
- * @copyright © Sam Christy 2013 onwards
+ * @copyright © Sam Christy 2013
  * @package   PieChart
+ * @version   v1.2
  */
 class PieChartGD extends PieChart {
     public function destroy() {
@@ -110,7 +110,6 @@ class PieChartGD extends PieChart {
     /**
      * Draws the legend for the pieChart, if $this->hasLegend is true.
      * @param int $legendOffset The number of pixels the legend is offset by the title.
-     * @param int $legendPadding The legend's padding, in pixels.
      * @return int The width of the legend and its padding.
      */
     protected function _drawLegend($legendOffset) {
@@ -224,6 +223,8 @@ class PieChartGD extends PieChart {
     /**
      * Draws and returns the height of the title and its padding (in pixels). If no title is 
      * specified, then nothing is drawn and 0 is returned.
+     * @var float x location
+     * @var float y location
      * @return int The height of the title + padding.
      */
     protected function _drawTitle($x = 0, $y = 0) {

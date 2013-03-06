@@ -1,9 +1,14 @@
 <?php
 
 /**
- * Description of PieChart
- *
- * @author Sam
+ * Abstract class that is designed to be extended for drawing pie charts with
+ * different graphics libraries. Use PieChartGD or PieChartImagick to actually
+ * draw your charts. 
+ * @author    Sam Christy <sam_christy@hotmail.co.uk>
+ * @licence   GNU GPL v3.0 <http://www.gnu.org/licenses/gpl-3.0.html>
+ * @copyright © Sam Christy 2013
+ * @package   PieChart
+ * @version   v1.2
  */
 abstract class PieChart {
     const FORMAT_GIF = 1;
@@ -31,7 +36,7 @@ abstract class PieChart {
      * @param int $height The chart's height, in pixels.
      * @param string [$title] The chart's title.
      * @param string|int|array [$textColor] The colour of the title and labels.
-     * @param string|int|array [$backgroundColor] 
+     * @param string|int|array [$backgroundColor] The color for the background.
      */
     public function __construct($width = 0, $height = 0, $title = '', $textColor = 0x222222,
             $backgroundColor = 0xffffff) {
@@ -43,8 +48,6 @@ abstract class PieChart {
         $this->quality = 100;
         $this->textColor = new PieChartColor($textColor);
         $this->backgroundColor = new PieChartColor($backgroundColor);
-        
-        // Feel free to change these to your favourite fonts...
         $this->titleFont  = __DIR__ . '/fonts/Open_Sans/OpenSans-Semibold.ttf';
         $this->legendFont = __DIR__ . '/fonts/Open_Sans/OpenSans-Regular.ttf';
     }
@@ -56,9 +59,9 @@ abstract class PieChart {
     public function destroy() {}
 
     /**
-     * Sets the title's text. To remove a title, set the title to ''.
+     * Sets the title's text. To remove the title, set it to ''.
      * @param string $title
-     * @param string $titleFont [optional] The path the .ttf font file for the title.
+     * @param string [$titleFont] The name of the font file for the title.
      */
     public function setTitle($title, $titleFont = NULL) {
         $this->title = $title;
@@ -68,9 +71,10 @@ abstract class PieChart {
     }
 
     /**
-     * Add or remove the chart's legend (it's displayed default).
-     * @param bool $displayLegend Specify false to remove the legend or true to add one.
-     * @param string $legendFont [optional] The path the .ttf font file for the legend's text.
+     * Add or remove the chart's legend (it is displayed default).
+     * @param bool $displayLegend Specify false to remove the legend or true to 
+     * add one.
+     * @param string [$legendFont] The name of the font for the legend's text.
      */
     public function setLegend($displayLegend, $legendFont = NULL) {
         $this->hasLegend = $displayLegend;
@@ -88,12 +92,10 @@ abstract class PieChart {
     }
     
     /**
-     * Adds a new slice to the pie. This function can also be used to modify the
-     * value of existing slices. It is recommended that pie charts do not exceed
-     * 6 slices.
+     * Adds a new slice to the pie chart.
      * @param string $name The name of the slice (used for legend label).
      * @param float $value
-     * @param string $color The CSS colour, e.g. '#FFFFFF', 'rgb(255, 255, 255).
+     * @param string|int|array $color The CSS colour, e.g. '#FFFFFF', 'rgb(255, 255, 255)'.
      */
     public function addSlice($name, $value, $color) {
         $this->slices[$name] = array(
@@ -111,7 +113,7 @@ abstract class PieChart {
     }
 
     /**
-     * Draws the chart so it is ready to be echoed to the client or saved.
+     * Draws the chart so that it is ready for output.
      */
     public function draw() {}
     
@@ -126,7 +128,7 @@ abstract class PieChart {
     /**
      * Echos the chart as a GIF and instructs the browser to display it inline.
      * @param string [$filename] The filename for the picture.
-     * @return bool The success of the operation.
+     * @return bool true if successful, false otherwise (implementation-dependent).
      */
     public function outputGIF($filename = 'pie-chart.gif') {
         header('Content-Type: image/gif');
@@ -137,7 +139,7 @@ abstract class PieChart {
     /**
      * Echos the chart as a JPEG and instructs the browser to display it inline.
      * @param string [$filename] The filename for the picture.
-     * @return bool The success of the operation.
+     * @return bool true if successful, false otherwise (implementation-dependent).
      */
     public function outputJPEG($filename = 'pie-chart.jpg') {
         header('Content-Type: image/jpeg');
@@ -148,7 +150,7 @@ abstract class PieChart {
     /**
      * Echos the chart as a PNG and instructs the browser to display it inline.
      * @param string [$filename] The filename for the picture.
-     * @return bool The success of the operation.
+     * @return bool true if successful, false otherwise (implementation-dependent).
      */
     public function outputPNG($filename = 'pie-chart.png') {
         header('Content-Type: image/png');
@@ -161,7 +163,7 @@ abstract class PieChart {
      * Echos the chart as a GIF and instructs the browser to force the user to
      * save it.
      * @param string [$filename] The filename for the picture.
-     * @return bool The success of the operation.
+     * @return bool true if successful, false otherwise (implementation-dependent).
      */
     public function forceDownloadGIF($filename = 'pie-chart.gif') {
         header("Pragma: public");
@@ -176,7 +178,7 @@ abstract class PieChart {
      * Echos the chart as a JPEG and instructs the browser to force the user to
      * save it.
      * @param string [$filename] The filename for the picture.
-     * @return bool The success of the operation.
+     * @return bool true if successful, false otherwise (implementation-dependent).
      */
     public function forceDownloadJPEG($filename = 'pie-chart.jpg') {
         header("Pragma: public");
@@ -191,7 +193,7 @@ abstract class PieChart {
      * Echos the chart as a PNG and instructs the browser to force the user to
      * save it.
      * @param string [$filename] The filename for the picture.
-     * @return bool The success of the operation.
+     * @return bool true if successful, false otherwise (implementation-dependent).
      */
     public function forceDownloadPNG($filename = 'pie-chart.png') {
         header("Pragma: public");
@@ -205,7 +207,7 @@ abstract class PieChart {
     /**
      * Saves the chart as a GIF, in the specified location.
      * @param string $filename
-     * @return int The success of the operation.
+     * @return int true if successful, false otherwise (implementation-dependent)..
      */
     public function saveGIF($filename) {
         return $this->_output(self::OUTPUT_SAVE, self::FORMAT_GIF, $filename);
@@ -214,7 +216,7 @@ abstract class PieChart {
     /**
      * Saves the chart as a JPEG, in the specified location.
      * @param string $filename
-     * @return int The success of the operation.
+     * @return int true if successful, false otherwise (implementation-dependent).
      */
     public function saveJPEG($filename) {
         return $this->_output(self::OUTPUT_SAVE, self::FORMAT_JPEG, $filename);
@@ -223,7 +225,7 @@ abstract class PieChart {
     /**
      * Saves the chart as a PNG, in the specified location.
      * @param string $filename
-     * @return int The success of the operation.
+     * @return int true if successful, false otherwise (implementation-dependent).
      */
     public function savePNG($filename) {
         $this->_output(self::OUTPUT_SAVE, self::FORMAT_PNG, $filename);

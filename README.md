@@ -38,3 +38,5 @@ $chart->outputPNG('Browser Statistics 2012 Q1.png');
 ![Pie Chart](example.png)
 
 *This example took 150ms to execute on my laptop (i3-350M @ 2.27 GHz).
+
+© Sam Christy 2013
