@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class PieChart | PieChart</title>
+
+	<script type="text/javascript" src="resources/combined.js?2816007599"></script>
+	<script type="text/javascript" src="elementlist.js?2079132514"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li><a href="package-None.html">None</a>
+						</li>
+				<li class="active"><a href="package-PieChart.html">PieChart</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-PieChart.html">PieChart</a></li>
+				<li><a href="class-PieChartColor.html">PieChartColor</a></li>
+				<li><a href="class-PieChartGD.html">PieChartGD</a></li>
+				<li><a href="class-PieChartImagick.html">PieChartImagick</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-PieChart.html" title="Summary of PieChart"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class PieChart</h1>
+
+
+	<div class="description">
+	
+<p>Abstract class that is designed to be extended for drawing pie charts with
+different graphics libraries. Use PieChartGD or PieChartImagick to actually draw
+your charts.</p>
+
+	</div>
+
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-PieChartGD.html">PieChartGD</a>, 
+			<a href="class-PieChartImagick.html">PieChartImagick</a>
+	</div>
+
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br />
+		
+		
+		<b>Package:</b> <a href="package-PieChart.html">PieChart</a><br />
+
+				<b>Copyright:</b>
+				© Sam Christy 2013<br />
+				<b>Author:</b>
+				Sam Christy &lt;<a
+href="mailto:sam_christy&#64;hotmail.co.uk">sam_christy&#64;<!---->hotmail.co.uk</a>&gt;<br />
+				<b>Version:</b>
+				v1.2<br />
+				<b>Licence:</b>
+				GNU GPL v3.0 &lt;<a
+href="http://www.gnu.org/licenses/gpl-3.0.html">http://www.gnu.org/licenses/gpl-3.0.html</a>&gt;<br />
+		<b>Located at</b> <a href="source-class-PieChart.html#3-235" title="Go to source code">PieChart.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-PieChart.html#33-53" title="Go to source code">__construct</a>( <span>integer <var>$width</var> = <span class="php-num">0</span></span>, <span>integer <var>$height</var> = <span class="php-num">0</span></span>, <span>string <var>$title</var> = <span class="php-quote">''</span></span>, <span>string|integer|array <var>$textColor</var> = <span class="php-num">0x222222</span></span>, <span>string|integer|array <var>$backgroundColor</var> = <span class="php-num">0xffffff</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Constructs the PieChart.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Constructs the PieChart.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$width</var></dt>
+					<dd><code>integer</code><br>$width The width of the chart, in pixels.</dd>
+					<dt><var>$height</var></dt>
+					<dd><code>integer</code><br>$height The chart's height, in pixels.</dd>
+					<dt><var>$title</var></dt>
+					<dd><code>string</code><br>[$title] The chart's title.</dd>
+					<dt><var>$textColor</var></dt>
+					<dd><code>string|integer|array</code><br>[$textColor] The colour of the title and labels.</dd>
+					<dt><var>$backgroundColor</var></dt>
+					<dd><code>string|integer|array</code><br>[$backgroundColor] The color for the background.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="destroy" id="_destroy">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_destroy">#</a>
+		<code><a href="source-class-PieChart.html#55-59" title="Go to source code">destroy</a>( )</code>
+
+		<div class="description short">
+			
+<p>Frees the memory that was allocated to the image. Use this function to clean
+up after your pie chart when you're finished with it.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Frees the memory that was allocated to the image. Use this function to clean
+up after your pie chart when you're finished with it.</p>
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setTitle" id="_setTitle">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setTitle">#</a>
+		<code><a href="source-class-PieChart.html#61-71" title="Go to source code">setTitle</a>( <span>string <var>$title</var></span>, <span>string <var>$titleFont</var> = <span class="php-keyword1">NULL</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Sets the title's text. To remove the title, set it to ''.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Sets the title's text. To remove the title, set it to ''.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$title</var></dt>
+					<dd><code>string</code><br>$title</dd>
+					<dt><var>$titleFont</var></dt>
+					<dd><code>string</code><br>[$titleFont] The name of the font file for the title.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setLegend" id="_setLegend">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setLegend">#</a>
+		<code><a href="source-class-PieChart.html#73-84" title="Go to source code">setLegend</a>( <span>boolean <var>$displayLegend</var></span>, <span>string <var>$legendFont</var> = <span class="php-keyword1">NULL</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Add or remove the chart's legend (it is displayed default).</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Add or remove the chart's legend (it is displayed default).</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$displayLegend</var></dt>
+					<dd><code>boolean</code><br>$displayLegend Specify false to remove the legend or true to add one.</dd>
+					<dt><var>$legendFont</var></dt>
+					<dd><code>string</code><br>[$legendFont] The name of the font for the legend's text.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setOutputQuality" id="_setOutputQuality">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setOutputQuality">#</a>
+		<code><a href="source-class-PieChart.html#86-92" title="Go to source code">setOutputQuality</a>( <span>integer <var>$quality</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Set the quality for generating output in lossy formats.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Set the quality for generating output in lossy formats.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$quality</var></dt>
+					<dd><code>integer</code><br>$quality An integer between 0 and 100 (inclusive).</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addSlice" id="_addSlice">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addSlice">#</a>
+		<code><a href="source-class-PieChart.html#94-105" title="Go to source code">addSlice</a>( <span>string <var>$name</var></span>, <span>float <var>$value</var></span>, <span>string|integer|array <var>$color</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Adds a new slice to the pie chart.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Adds a new slice to the pie chart.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name The name of the slice (used for legend label).</dd>
+					<dt><var>$value</var></dt>
+					<dd><code>float</code><br>$value</dd>
+					<dt><var>$color</var></dt>
+					<dd><code>string|integer|array</code><br>$color The CSS colour, e.g. '#FFFFFF', 'rgb(255, 255, 255)'.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="removeSlice" id="_removeSlice">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_removeSlice">#</a>
+		<code><a href="source-class-PieChart.html#107-113" title="Go to source code">removeSlice</a>( <span>string <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Removes the specified slice.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Removes the specified slice.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name The name of the slice to be removed.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="draw" id="_draw">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_draw">#</a>
+		<code><a href="source-class-PieChart.html#115-118" title="Go to source code">draw</a>( )</code>
+
+		<div class="description short">
+			
+<p>Draws the chart so that it is ready for output.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Draws the chart so that it is ready for output.</p>
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="_output" id="__output">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#__output">#</a>
+		<code><a href="source-class-PieChart.html#120-126" title="Go to source code">_output</a>( <span>integer <var>$method</var></span>, <span>integer <var>$format</var></span>, <span>string <var>$filename</var></span> )</code>
+
+		<div class="description short">
+			
+<p>For child classes to override, so that the output functions work.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>For child classes to override, so that the output functions work.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$method</var></dt>
+					<dd><code>integer</code><br>$method</dd>
+					<dt><var>$format</var></dt>
+					<dd><code>integer</code><br>$format</dd>
+					<dt><var>$filename</var></dt>
+					<dd><code>string</code><br>$filename</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="outputGIF" id="_outputGIF">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_outputGIF">#</a>
+		<code><a href="source-class-PieChart.html#128-138" title="Go to source code">outputGIF</a>( <span>string <var>$filename</var> = <span class="php-quote">'pie-chart.gif'</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Echos the chart as a GIF and instructs the browser to display it inline.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Echos the chart as a GIF and instructs the browser to display it inline.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$filename</var></dt>
+					<dd><code>string</code><br>[$filename] The filename for the picture.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>true if successful, false otherwise (implementation-dependent).<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="outputJPEG" id="_outputJPEG">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_outputJPEG">#</a>
+		<code><a href="source-class-PieChart.html#140-150" title="Go to source code">outputJPEG</a>( <span>string <var>$filename</var> = <span class="php-quote">'pie-chart.jpg'</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Echos the chart as a JPEG and instructs the browser to display it inline.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Echos the chart as a JPEG and instructs the browser to display it inline.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$filename</var></dt>
+					<dd><code>string</code><br>[$filename] The filename for the picture.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>true if successful, false otherwise (implementation-dependent).<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="outputPNG" id="_outputPNG">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_outputPNG">#</a>
+		<code><a href="source-class-PieChart.html#152-162" title="Go to source code">outputPNG</a>( <span>string <var>$filename</var> = <span class="php-quote">'pie-chart.png'</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Echos the chart as a PNG and instructs the browser to display it inline.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Echos the chart as a PNG and instructs the browser to display it inline.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$filename</var></dt>
+					<dd><code>string</code><br>[$filename] The filename for the picture.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>true if successful, false otherwise (implementation-dependent).<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="forceDownloadGIF" id="_forceDownloadGIF">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_forceDownloadGIF">#</a>
+		<code><a href="source-class-PieChart.html#164-177" title="Go to source code">forceDownloadGIF</a>( <span>string <var>$filename</var> = <span class="php-quote">'pie-chart.gif'</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Echos the chart as a GIF and instructs the browser to force the user to save
+it.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Echos the chart as a GIF and instructs the browser to force the user to save
+it.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$filename</var></dt>
+					<dd><code>string</code><br>[$filename] The filename for the picture.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>true if successful, false otherwise (implementation-dependent).<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="forceDownloadJPEG" id="_forceDownloadJPEG">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_forceDownloadJPEG">#</a>
+		<code><a href="source-class-PieChart.html#179-192" title="Go to source code">forceDownloadJPEG</a>( <span>string <var>$filename</var> = <span class="php-quote">'pie-chart.jpg'</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Echos the chart as a JPEG and instructs the browser to force the user to save
+it.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Echos the chart as a JPEG and instructs the browser to force the user to save
+it.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$filename</var></dt>
+					<dd><code>string</code><br>[$filename] The filename for the picture.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>true if successful, false otherwise (implementation-dependent).<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="forceDownloadPNG" id="_forceDownloadPNG">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_forceDownloadPNG">#</a>
+		<code><a href="source-class-PieChart.html#194-207" title="Go to source code">forceDownloadPNG</a>( <span>string <var>$filename</var> = <span class="php-quote">'pie-chart.png'</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Echos the chart as a PNG and instructs the browser to force the user to save
+it.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Echos the chart as a PNG and instructs the browser to force the user to save
+it.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$filename</var></dt>
+					<dd><code>string</code><br>[$filename] The filename for the picture.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>true if successful, false otherwise (implementation-dependent).<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="saveGIF" id="_saveGIF">
+
+		<td class="attributes"><code>
+			 public 
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_saveGIF">#</a>
+		<code><a href="source-class-PieChart.html#209-216" title="Go to source code">saveGIF</a>( <span>string <var>$filename</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Saves the chart as a GIF, in the specified location.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Saves the chart as a GIF, in the specified location.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$filename</var></dt>
+					<dd><code>string</code><br>$filename</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br>true if successful, false otherwise (implementation-dependent)..<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="saveJPEG" id="_saveJPEG">
+
+		<td class="attributes"><code>
+			 public 
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_saveJPEG">#</a>
+		<code><a href="source-class-PieChart.html#218-225" title="Go to source code">saveJPEG</a>( <span>string <var>$filename</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Saves the chart as a JPEG, in the specified location.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Saves the chart as a JPEG, in the specified location.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$filename</var></dt>
+					<dd><code>string</code><br>$filename</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br>true if successful, false otherwise (implementation-dependent).<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="savePNG" id="_savePNG">
+
+		<td class="attributes"><code>
+			 public 
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_savePNG">#</a>
+		<code><a href="source-class-PieChart.html#227-234" title="Go to source code">savePNG</a>( <span>string <var>$filename</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Saves the chart as a PNG, in the specified location.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Saves the chart as a PNG, in the specified location.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$filename</var></dt>
+					<dd><code>string</code><br>$filename</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>integer</code><br>true if successful, false otherwise (implementation-dependent).<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="FORMAT_GIF" id="FORMAT_GIF">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-PieChart.html#14" title="Go to source code"><b>FORMAT_GIF</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">1</span></code></td>
+		<td class="description"><div>
+			<a href="#FORMAT_GIF" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="FORMAT_JPEG" id="FORMAT_JPEG">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-PieChart.html#15" title="Go to source code"><b>FORMAT_JPEG</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">2</span></code></td>
+		<td class="description"><div>
+			<a href="#FORMAT_JPEG" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="FORMAT_PNG" id="FORMAT_PNG">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-PieChart.html#16" title="Go to source code"><b>FORMAT_PNG</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">3</span></code></td>
+		<td class="description"><div>
+			<a href="#FORMAT_PNG" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="OUTPUT_DOWNLOAD" id="OUTPUT_DOWNLOAD">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-PieChart.html#17" title="Go to source code"><b>OUTPUT_DOWNLOAD</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">1</span></code></td>
+		<td class="description"><div>
+			<a href="#OUTPUT_DOWNLOAD" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="OUTPUT_INLINE" id="OUTPUT_INLINE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-PieChart.html#18" title="Go to source code"><b>OUTPUT_INLINE</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">2</span></code></td>
+		<td class="description"><div>
+			<a href="#OUTPUT_INLINE" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="OUTPUT_SAVE" id="OUTPUT_SAVE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name"><code>
+				<a href="source-class-PieChart.html#19" title="Go to source code"><b>OUTPUT_SAVE</b></a>
+		</code></td>
+		<td class="value"><code><span class="php-num">3</span></code></td>
+		<td class="description"><div>
+			<a href="#OUTPUT_SAVE" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="slices" id="$slices">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-PieChart.html#21" title="Go to source code"><var>$slices</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$slices" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="width" id="$width">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-PieChart.html#22" title="Go to source code"><var>$width</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$width" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="height" id="$height">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-PieChart.html#23" title="Go to source code"><var>$height</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$height" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="title" id="$title">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-PieChart.html#24" title="Go to source code"><var>$title</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$title" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="hasLegend" id="$hasLegend">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-PieChart.html#25" title="Go to source code"><var>$hasLegend</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$hasLegend" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="titleFont" id="$titleFont">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-PieChart.html#26" title="Go to source code"><var>$titleFont</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$titleFont" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="legendFont" id="$legendFont">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-PieChart.html#27" title="Go to source code"><var>$legendFont</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$legendFont" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="textColor" id="$textColor">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-PieChart.html#28" title="Go to source code"><var>$textColor</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$textColor" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="backgroundColor" id="$backgroundColor">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-PieChart.html#29" title="Go to source code"><var>$backgroundColor</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$backgroundColor" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="canvas" id="$canvas">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-PieChart.html#30" title="Go to source code"><var>$canvas</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$canvas" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="quality" id="$quality">
+		<td class="attributes"><code>
+			protected  
+			mixed
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-PieChart.html#31" title="Go to source code"><var>$quality</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$quality" class="anchor">#</a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		PieChart API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>
