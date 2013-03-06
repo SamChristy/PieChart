@@ -61,14 +61,6 @@ class PieChartImagick extends PieChart {
             $sliceStart = $sliceEnd;
         }
     }
-
-    public function outputPNG($filename = 'pie-chart.png') {
-        header('Content-Type: image/png');
-        header("Content-Disposition: inline; filename=\"$filename\"");
-
-        $this->canvas->setImageFormat('png');
-        echo $this->canvas;
-    }
     
     protected function _output($method, $format, $filename) {
         switch ($format) {

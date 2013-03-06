@@ -14,10 +14,6 @@ class PieChartGD extends PieChart {
     public function destroy() {
         imageDestroy($this->canvas);
     }
-    
-    public function removeSlice($name) {
-        unset($this->slices[$name]);
-    }
 
     public function draw() {
         $this->canvas = imageCreateTrueColor($this->width, $this->height);

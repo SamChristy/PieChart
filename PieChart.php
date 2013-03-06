@@ -133,7 +133,8 @@ abstract class PieChart {
     public function outputGIF($filename = 'pie-chart.gif') {
         header('Content-Type: image/gif');
         header("Content-Disposition: inline; filename=\"$filename\"");
-        $this->_output(self::OUTPUT_INLINE, self::FORMAT_GIF, $filename);
+        
+        return $this->_output(self::OUTPUT_INLINE, self::FORMAT_GIF, $filename);
     }
     
     /**
@@ -144,7 +145,8 @@ abstract class PieChart {
     public function outputJPEG($filename = 'pie-chart.jpg') {
         header('Content-Type: image/jpeg');
         header("Content-Disposition: inline; filename=\"$filename\"");
-        $this->_output(self::OUTPUT_INLINE, self::FORMAT_JPEG, $filename);
+        
+        return $this->_output(self::OUTPUT_INLINE, self::FORMAT_JPEG, $filename);
     }
     
     /**
@@ -228,7 +230,7 @@ abstract class PieChart {
      * @return int true if successful, false otherwise (implementation-dependent).
      */
     public function savePNG($filename) {
-        $this->_output(self::OUTPUT_SAVE, self::FORMAT_PNG, $filename);
+        return $this->_output(self::OUTPUT_SAVE, self::FORMAT_PNG, $filename);
     }
 }
 
