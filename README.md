@@ -12,6 +12,10 @@ Below is the code required to generate a pie chart and echo it to the client's b
 uses the method `outputPNG()` to tell the browser to render the image. Alternatively, the function 
 `forceDownloadPNG()` can be used to instruct the browser to bring up the save dialog.
 
+### Documentation ###
+[View the documentation](http://samchristy.github.com/PieChart/documentation/index.html) 
+(generated with [ApiGen](http://apigen.org/)).
+
 #### Code ####
 ````php
 <?php
