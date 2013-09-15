@@ -1,6 +1,5 @@
 <?php
 include 'PieChart.php';
-include 'lib/imageSmoothArc.php';
 
 /**
  * A lightweight class for drawing pie charts, using the GD library.
@@ -15,7 +14,11 @@ class PieChartGD extends PieChart {
         imageDestroy($this->canvas);
     }
 
-    public function draw() {
+    /**
+     * Draws the pie chart, with optional supersampled anti-aliasing.
+     * @param int $aa
+     */
+    public function draw($aa = 4) {
         $this->canvas = imageCreateTrueColor($this->width, $this->height);
 
         // Set anti-aliasing for the pie chart.
@@ -25,7 +28,7 @@ class PieChartGD extends PieChart {
                 $this->_convertColor($this->backgroundColor));
         
         $total = 0;
-        $sliceStart = 90;  // Start at 12 o'clock.
+        $sliceStart = -90;  // Start at 12 o'clock.
 
         $titleHeight = $this->_drawTitle();
         $legendWidth = $this->_drawLegend($titleHeight);
@@ -40,33 +43,80 @@ class PieChartGD extends PieChart {
         $pieDiameter = round(
                 min($this->width - $legendWidth, $this->height - $titleHeight) * 0.85
         );
-
+        
         foreach ($this->slices as $slice)
             $total += $slice['value'];
-
-        // Draw the slices.
-        foreach (array_reverse($this->slices) as $slice) {
-            $sliceWidth = 360 * $slice['value'] / $total;
-
-            // Skip slices that are too small to draw / be visible.
-            if ($sliceWidth == 0)
-                continue;
-
-            $sliceEnd = $sliceStart + $sliceWidth;
+        
+        // If anti-aliasing is enabled, we supersample the pie to work around
+        // the fact that GD does not provide anti-aliasing natively.
+        if ($aa > 0) {
+            $ssDiameter = $pieDiameter * $aa;
+            $ssCentreX = $ssCentreY = $ssDiameter / 2 ;
+            $superSample = imageCreateTrueColor($ssDiameter, $ssDiameter);
+            imageFilledRectangle($superSample, 0, 0, $ssDiameter, $ssDiameter,
+                $this->_convertColor($this->backgroundColor));
             
-            imageSmoothArc(
-                $this->canvas,
-                $pieCentreX,
-                $pieCentreY,
-                $pieDiameter,
-                $pieDiameter,
-                array($slice['color']->r, $slice['color']->g, $slice['color']->b, 0),
-                deg2rad($sliceStart),
-                deg2rad($sliceEnd)
-            );
+            foreach ($this->slices as $slice) {
+                $sliceWidth = 360 * $slice['value'] / $total;
 
-            // Move along to the next slice.
-            $sliceStart = $sliceEnd;
+                // Skip slices that are too small to draw / be visible.
+                if ($sliceWidth == 0)
+                    continue;
+                
+                $sliceEnd = $sliceStart + $sliceWidth;
+
+                imageFilledArc(
+                    $superSample,
+                    $ssCentreX,
+                    $ssCentreY,
+                    $ssDiameter,
+                    $ssDiameter,
+                    $sliceStart,
+                    $sliceEnd,
+                    $this->_convertColor($slice['color']),
+                    IMG_ARC_PIE
+                );
+
+                // Move along to the next slice.
+                $sliceStart = $sliceEnd;
+            }
+            
+            imageCopyResampled(
+                $this->canvas, $superSample,
+                $pieCentreX - $pieDiameter / 2, $pieCentreY - $pieDiameter / 2,
+                0, 0,
+                $pieDiameter, $pieDiameter,
+                $ssDiameter, $ssDiameter
+            );
+            
+            imageDestroy($superSample);
+        }
+        else {
+            // Draw the slices.
+            foreach ($this->slices as $slice) {
+                $sliceWidth = 360 * $slice['value'] / $total;
+
+                // Skip slices that are too small to draw / be visible.
+                if ($sliceWidth == 0)
+                    continue;
+
+                $sliceEnd = $sliceStart + $sliceWidth;
+
+                imageFilledArc(
+                    $this->canvas,
+                    $pieCentreX,
+                    $pieCentreY,
+                    $pieDiameter,
+                    $pieDiameter,
+                    $sliceStart,
+                    $sliceEnd,
+                    $this->_convertColor($slice['color']),
+                    IMG_ARC_PIE
+                );
+
+                // Move along to the next slice.
+                $sliceStart = $sliceEnd;
+            }
         }
     }
     
