@@ -1,3 +1,3 @@
 
 var ApiGen = ApiGen || {};
-ApiGen.elements = [["f","imageSmoothArc()"],["f","imageSmoothArcDrawSegment()"],["c","PieChart"],["c","PieChartColor"],["c","PieChartGD"],["c","PieChartImagick"]];
+ApiGen.elements = [["c","SamChristy\\PieChart\\PieChart"],["c","SamChristy\\PieChart\\PieChartColor"],["c","SamChristy\\PieChart\\PieChartGD"],["c","SamChristy\\PieChart\\PieChartImagick"]];
