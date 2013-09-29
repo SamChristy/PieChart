@@ -16,19 +16,19 @@ uses the method `outputPNG()` to tell the browser to render the image. Alternati
 [View the documentation](http://samchristy.github.com/PieChart/documentation/index.html) 
 (generated with [ApiGen](http://apigen.org/)).
 
-#### Code ####
+#### Installation ####
+[Use Composer](https://packagist.org/packages/samchristy/piechart)!
+
+#### Example Usage ####
 ````php
 <?php
-require 'PieChartImagick.php';
+require 'vendor/autoload.php';  // Composer's autoloader.
+use SamChristy\PieChart\PieChartGD;
 
-$width  = 600;
-$height = 375;
-$title = 'Browser Usage Statistics (January - April)';
- 
-$chart = new PieChartImagick($width, $height);
+$chart = new PieChartGD(600, 375);
 
-$chart->setTitle($title, 'fonts/Oswald/Oswald-Regular.ttf');
-
+$chart->setTitle('Browser Usage Statistics (January - April)');
+// Method chaining coming soon!
 $chart->addSlice('Google Chrome',   27, '#4A7EBB');
 $chart->addSlice('Mozilla Firefox', 23, '#DA8137');
 $chart->addSlice('Apple Safari',    11, '#9BBB59');
@@ -36,10 +36,10 @@ $chart->addSlice('Opera',            3, '#BE4B48');
 $chart->addSlice('Other',            5, '#7D60A0');
 
 $chart->draw();
-$chart->outputPNG('Browser Statistics 2012 Q1.png');
+$chart->outputPNG();
 ````
 #### Output ####
-![Pie Chart](example.png)
+![Pie Chart](src/SamChristy/PieChart/example/example.png)
 
 *This example took 150ms to execute on my laptop (i3-350M @ 2.27 GHz).
 
