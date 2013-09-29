@@ -1,0 +1,21 @@
+{
+    "name": "samchristy/piechart",
+    "type": "library",
+    "description": "A simple class for drawing pie charts with ImageMagick or GD in PHP.",
+    "keywords": ["graphics", "pie", "chart"],
+    "homepage": "https://github.com/SamChristy/PieChart",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Sam Christy",
+            "email": "sam_christy@hotmail.co.uk",
+			"homepage": "https://github.com/SamChristy"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+     "autoload": {
+        "psr-0": { "SamChristy\\PieChart\\": "src/" }
+    }
+}

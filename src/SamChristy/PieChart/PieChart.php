@@ -1,4 +1,5 @@
 <?php
+namespace SamChristy\PieChart;
 
 /**
  * Abstract class that is designed to be extended for drawing pie charts with

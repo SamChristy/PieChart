@@ -1,4 +1,5 @@
 <?php
+namespace SamChristy\PieChart;
 include 'PieChart.php';
 
 /**

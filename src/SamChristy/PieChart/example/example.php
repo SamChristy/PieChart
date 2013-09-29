@@ -1,20 +1,22 @@
 <?php
+use SamChristy\PieChart\PieChartImagick;
+
 $width  = 400 * 1.5;
 $height = 250 * 1.5;
 $title = 'Browser Usage Statistics (January - April)';
 
 if (extension_loaded('imagick'))
 {
-    require 'PieChartImagick.php';
+    require '../PieChartImagick.php';
     $chart = new PieChartImagick($width, $height);
 }
 else
 {
-    require 'PieChartGD.php';
-    $chart = new PieChartGD($width, $height);    
+    require '../PieChartGD.php';
+    $chart = new SamChristy\PieChart\PieChartGD($width, $height);
 }
 
-$chart->setTitle($title, 'fonts/Oswald/Oswald-Regular.ttf');
+$chart->setTitle($title, '../fonts/Oswald/Oswald-Regular.ttf');
 
 $chart->addSlice('Google Chrome',   27, '#4A7EBB');
 $chart->addSlice('Mozilla Firefox', 23, '#DA8137');
