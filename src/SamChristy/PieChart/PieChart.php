@@ -9,7 +9,7 @@ namespace SamChristy\PieChart;
  * @licence   GNU GPL v3.0 <http://www.gnu.org/licenses/gpl-3.0.html>
  * @copyright © Sam Christy 2013
  * @package   PieChart
- * @version   v1.2
+ * @version   v2.0.0
  */
 abstract class PieChart {
     const FORMAT_GIF = 1;

@@ -1,8 +1,8 @@
 <?php
 use SamChristy\PieChart\PieChartImagick;
 
-$width  = 400 * 1.5;
-$height = 250 * 1.5;
+$width  = 600;
+$height = 375;
 $title = 'Browser Usage Statistics (January - April)';
 
 if (extension_loaded('imagick'))
@@ -25,6 +25,4 @@ $chart->addSlice('Opera',            3, '#BE4B48');
 $chart->addSlice('Other',            5, '#7D60A0');
 
 $chart->draw();
-
-$chart->outputPNG('Browser Statistics 2012 Q1.png');
-exit;
+$chart->outputPNG();
