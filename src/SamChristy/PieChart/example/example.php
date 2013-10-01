@@ -1,5 +1,7 @@
 <?php
 use SamChristy\PieChart\PieChartImagick;
+require '../PieChart.php';
+require '../PieChartColor.php';
 
 $width  = 600;
 $height = 375;

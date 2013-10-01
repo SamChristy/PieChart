@@ -1,6 +1,5 @@
 <?php
 namespace SamChristy\PieChart;
-include 'PieChart.php';
 
 /**
  * A lightweight class for drawing pie charts, using the ImageMagick library.
