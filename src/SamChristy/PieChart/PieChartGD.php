@@ -22,12 +22,9 @@ class PieChartGD extends PieChart {
     public function draw($aa = 4) {
         $this->canvas = imageCreateTrueColor($this->width, $this->height);
 
-        // Set anti-aliasing for the pie chart.
-        imageAntiAlias($this->canvas, true);
+        imageSaveAlpha($this->canvas, true);
+        imageFill($this->canvas, 0, 0, $this->_convertColor($this->backgroundColor));
 
-        imageFilledRectangle($this->canvas, 0, 0, $this->width, $this->height,
-                $this->_convertColor($this->backgroundColor));
-        
         $total = 0;
         $sliceStart = -90;  // Start at 12 o'clock.
 
@@ -54,8 +51,7 @@ class PieChartGD extends PieChart {
             $ssDiameter = $pieDiameter * $aa;
             $ssCentreX = $ssCentreY = $ssDiameter / 2 ;
             $superSample = imageCreateTrueColor($ssDiameter, $ssDiameter);
-            imageFilledRectangle($superSample, 0, 0, $ssDiameter, $ssDiameter,
-                $this->_convertColor($this->backgroundColor));
+            imageFill($superSample, 0, 0, imageColorAllocateAlpha($superSample, 0, 0, 0, 127));
             
             foreach ($this->slices as $slice) {
                 $sliceWidth = 360 * $slice['value'] / $total;
@@ -326,10 +322,13 @@ class PieChartGD extends PieChart {
     /**
      * A convenience function for converting PieChartColor objects to the format
      * that GD requires.
+     * @param \SamChristy\PieChart\PieChartColor $color
+     * @return int
      */
     private function _convertColor(PieChartColor $color) {
         // Interestingly, GD uses the ARGB format internally, so 
         // PieChartColor::toInt() would actually work for everything but GIFs...
-        return imageColorAllocate($this->canvas, $color->r, $color->g, $color->b);
+        $alpha = 127 - round($color->a * 127);
+        return imageColorAllocateAlpha($this->canvas, $color->r, $color->g, $color->b, $alpha);
     }
 }
