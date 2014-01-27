@@ -39,8 +39,8 @@ abstract class PieChart {
      * @param string|int|array [$textColor] The colour of the title and labels.
      * @param string|int|array [$backgroundColor] The color for the background.
      */
-    public function __construct($width = 0, $height = 0, $title = '', $textColor = 0x222222,
-            $backgroundColor = 0xffffff) {
+    public function __construct($width = 0, $height = 0, $title = '', $textColor = 0xff222222,
+            $backgroundColor = PieChartColor::TRANSPARENT) {
         $this->width  = $width;
         $this->height = $height;
         $this->title  = $title;
@@ -90,6 +90,22 @@ abstract class PieChart {
      */
     public function setOutputQuality($quality) {
         $this->quality = $quality;
+    }
+    
+    /**
+     * Changes the chart's background colour.
+     * @param string|int|array $color The new background color, in CSS format.
+     */
+    public function setBackgroundColor($color) {
+        $this->backgroundColor = new PieChartColor($color);
+    }
+    
+    /**
+     * Changes the font colour.
+     * @param string|int|array The new font color, in CSS format.
+     */
+    public function setTextColor($color) {
+        $this->textColor = new PieChartColor($color);
     }
     
     /**
