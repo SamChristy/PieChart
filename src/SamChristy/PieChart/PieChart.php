@@ -240,9 +240,12 @@ abstract class PieChart {
  * @package PieChart
  */
 class PieChartColor {
+    const TRANSPARENT = 0x00000000;
+    
     public $r;
     public $g;
     public $b;
+    public $a;
     
     /**
      * Sets the colour using {@link setColor()}, if an argument is provided.
@@ -267,12 +270,7 @@ class PieChartColor {
                 $this->r = $color[0];
                 $this->g = $color[1];
                 $this->b = $color[2];
-                break;
-            
-            case 'integer': // ARGB format
-                $this->r = $color >> 16 & 0xFF;
-                $this->g = $color >>  8 & 0xFF;
-                $this->b = $color       & 0xFF;
+                $this->a = isset($color[3]) ? $color[3] : 1.0;
                 break;
             
             case 'string':
@@ -283,22 +281,42 @@ class PieChartColor {
                     $this->r = hexDec(subStr($color, 1, 2));
                     $this->g = hexDec(subStr($color, 3, 2));
                     $this->b = hexDec(subStr($color, 5, 2));
+                    $this->a = 1.0;
 
                 } else if ($length == 4) {
                     // e.g. '#FFF'.
                     $this->r = hexDec(subStr($color, 1, 1)) * 17;
                     $this->g = hexDec(subStr($color, 2, 1)) * 17;
                     $this->b = hexDec(subStr($color, 3, 1)) * 17;
+                    $this->a = 1.0;
 
-                } else if (strToLower(subStr($color, 0, 4)) == 'rgb(') {
+                } else if (($prefix = strToLower(subStr($color, 0, 4))) == 'rgb(') {
                     // e.g. 'rgb(255, 255, 255)'.
                     $listOfColors = subStr($color, 4, -1);
+                    $arrayOfColors = explode(',', $listOfColors);
+                    
+                    $this->r = intVal($arrayOfColors[0]);
+                    $this->g = intVal($arrayOfColors[1]);
+                    $this->b = intVal($arrayOfColors[2]);
+                    $this->a = 1.0;
+                    
+                } else if ($prefix == 'rgba') {
+                    // e.g. 'rgb(255, 255, 255, 1.0)'.
+                    $listOfColors = subStr($color, 5, -1);
                     $arrayOfColors = explode(',', $listOfColors);
 
                     $this->r = intVal($arrayOfColors[0]);
                     $this->g = intVal($arrayOfColors[1]);
                     $this->b = intVal($arrayOfColors[2]);
+                    $this->a = floatVal($arrayOfColors[3]);
                 }
+                break;
+                
+            default:  // ARGB format (32-bit unsigned int).
+                $this->a = floatVal(intVal($color >> 24 & 0xFF) / 255);
+                $this->r = $color >> 16 & 0xFF;
+                $this->g = $color >>  8 & 0xFF;
+                $this->b = $color       & 0xFF;
                 break;
         }
     }
@@ -311,6 +329,7 @@ class PieChartColor {
     public function toInt() {
         $color = 0;
         
+        $color |= $this->a << 24;
         $color |= $this->r << 16;
         $color |= $this->g << 8;
         $color |= $this->b;
@@ -326,6 +345,15 @@ class PieChartColor {
         return 'rgb(' . $this->r . ',' . $this->g . ',' . $this->b . ')';
     }
     
+    /**
+     * Returns the colour in the RGBA string format, e.g. 'rgba(0,0,0,0.0)'.
+     * @return string
+     */
+    public function toRGBA() {
+        $alpha = round($this->a, 6);
+        return 'rgba(' . $this->r . ',' . $this->g . ',' . $this->b . ',' . $alpha . ')';
+    }
+	
     /**
      * Returns the color in the CSS hexadecimal format, e.g. '#000000'.
      * @return string
