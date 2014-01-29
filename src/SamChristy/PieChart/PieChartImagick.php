@@ -20,7 +20,7 @@ class PieChartImagick extends PieChart {
 
     public function draw() {
         $this->canvas = new Imagick;
-        $this->canvas->newImage($this->width, $this->height, $this->backgroundColor->toHex());
+        $this->canvas->newImage($this->width, $this->height, $this->backgroundColor->toRGBA());
         
         $total = 0;
         $sliceStart = -90;  // Start at 12 o'clock.
@@ -152,7 +152,7 @@ class PieChartImagick extends PieChart {
         $labelSettings = new ImagickDraw;
         
         $labelSettings->setFont($this->legendFont);
-        $labelSettings->setFillColor($this->textColor->toHex());
+        $labelSettings->setFillColor($this->textColor->toRGBA());
         $labelSettings->setFontSize($legendFontSize);
         $labelSettings->setGravity(Imagick::GRAVITY_NORTHWEST);
         
@@ -166,7 +166,7 @@ class PieChartImagick extends PieChart {
             
             // 1. Draw the key's colour square.
             $keySquare = new ImagickDraw;
-            $keySquare->setFillColor($slice['color']->toHex());
+            $keySquare->setFillColor($slice['color']->toRGBA());
             $keySquare->rectangle(
                 $keyPosX,
                 $keyPosY,
@@ -199,7 +199,7 @@ class PieChartImagick extends PieChart {
 
         // 1. Drawn the curved part.
         $arc = new ImagickDraw;
-        $color = $color->toHex();
+        $color = $color->toRGBA();
         
         $arc->setFillColor($color);
         $arc->setStrokeColor($color);
@@ -277,7 +277,7 @@ class PieChartImagick extends PieChart {
         $titleSettings = new ImagickDraw;
 
         $titleSettings->setFont($this->titleFont);
-        $titleSettings->setFillColor($this->textColor->toHex());
+        $titleSettings->setFillColor($this->textColor->toRGBA());
         $titleSettings->setGravity(Imagick::GRAVITY_NORTH);
 
         // Determine ideal font size for the title.
