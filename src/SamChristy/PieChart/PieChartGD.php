@@ -4,11 +4,11 @@ include 'PieChart.php';
 
 /**
  * A lightweight class for drawing pie charts, using the GD library.
- * @author    Sam Christy <sam_christy@hotmail.co.uk>
+ * @author    Sam Christy <sam_christy@hotmail.co.uk> & Alex Paredes <alexparedesmartinez@gmail.com>
  * @licence   GNU GPL v3.0 <http://www.gnu.org/licenses/gpl-3.0.html>
- * @copyright © Sam Christy 2013
+ * @copyright © Sam Christy 2013 
  * @package   PieChart
- * @version   v2.0.0
+ * @version   v2.0.1
  */
 class PieChartGD extends PieChart {
     public function destroy() {
@@ -19,15 +19,24 @@ class PieChartGD extends PieChart {
      * Draws the pie chart, with optional supersampled anti-aliasing.
      * @param int $aa
      */
-    public function draw($aa = 4) {
+    public function draw($aa = 4, $transparentBackground = true) {
         $this->canvas = imageCreateTrueColor($this->width, $this->height);
 
         // Set anti-aliasing for the pie chart.
         imageAntiAlias($this->canvas, true);
 
+        $transparency = null;
+        if($transparentBackground){
+            imagealphablending($this->canvas, false);
+            $transparency = imagecolorallocatealpha($this->canvas, 0, 0, 0, 127);
+            imagefill($this->canvas, 0, 0, $transparency);
+            imagesavealpha($this->canvas, true);
+        }
+
+
         imageFilledRectangle($this->canvas, 0, 0, $this->width, $this->height,
-                $this->_convertColor($this->backgroundColor));
-        
+                $transparency === null ? $this->_convertColor($this->backgroundColor) : $transparency);
+
         $total = 0;
         $sliceStart = -90;  // Start at 12 o'clock.
 
@@ -54,8 +63,14 @@ class PieChartGD extends PieChart {
             $ssDiameter = $pieDiameter * $aa;
             $ssCentreX = $ssCentreY = $ssDiameter / 2 ;
             $superSample = imageCreateTrueColor($ssDiameter, $ssDiameter);
+
+            if($transparentBackground){
+                imagefill($superSample, 0, 0, $transparency);
+                imagesavealpha($superSample, true);
+            }
+
             imageFilledRectangle($superSample, 0, 0, $ssDiameter, $ssDiameter,
-                $this->_convertColor($this->backgroundColor));
+                $transparency === null ? $this->_convertColor($this->backgroundColor) : $transparency);
             
             foreach ($this->slices as $slice) {
                 $sliceWidth = 360 * $slice['value'] / $total;
