@@ -1,5 +1,6 @@
 PieChart
 ========
+[![Latest Stable Version](https://poser.pugx.org/samchristy/piechart/v/stable)](https://packagist.org/packages/samchristy/piechart)[![Total Downloads](https://poser.pugx.org/samchristy/piechart/downloads)](https://packagist.org/packages/samchristy/piechart)[![Monthly Downloads](https://poser.pugx.org/samchristy/piechart/d/monthly)](https://packagist.org/packages/samchristy/piechart)[![License](https://poser.pugx.org/samchristy/piechart/license)](https://packagist.org/packages/samchristy/piechart)
 
 A reasonably efficient* class for drawing pie charts with ImageMagick or GD in PHP. Intended as a 
 learning exercise for using the NetBeans IDE and the Xdebug profiler and debugger. The code is 
