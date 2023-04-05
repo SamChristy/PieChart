@@ -83,13 +83,13 @@ class PieChartGD extends PieChart {
 
                 imageFilledArc(
                     $superSample,
-                    $ssCentreX,
-                    $ssCentreY,
-                    $ssDiameter,
-                    $ssDiameter,
-                    $sliceStart,
-                    $sliceEnd,
-                    $this->_convertColor($slice['color']),
+                    (int)$ssCentreX,
+                    (int)$ssCentreY,
+                    (int)$ssDiameter,
+                    (int)$ssDiameter,
+                    (int)$sliceStart,
+                    (int)$sliceEnd,
+                    (int)$this->_convertColor($slice['color']),
                     IMG_ARC_PIE
                 );
 
@@ -99,10 +99,10 @@ class PieChartGD extends PieChart {
             
             imageCopyResampled(
                 $this->canvas, $superSample,
-                $pieCentreX - $pieDiameter / 2, $pieCentreY - $pieDiameter / 2,
+                (int)($pieCentreX - $pieDiameter / 2), (int)($pieCentreY - $pieDiameter / 2),
                 0, 0,
-                $pieDiameter, $pieDiameter,
-                $ssDiameter, $ssDiameter
+                (int)$pieDiameter, (int)$pieDiameter,
+                (int)$ssDiameter, (int)$ssDiameter
             );
             
             imageDestroy($superSample);
@@ -248,16 +248,16 @@ class PieChartGD extends PieChart {
         $labelY = $y + $squareSize / 2 - $labelHeight / 2;
         
         imageFilledRectangle(
-           $this->canvas, $x, $y, $x + $squareSize, $y + $squareSize, $this->_convertColor($color)
+           $this->canvas, (int)$x, (int)$y, (int)($x + $squareSize), (int)($y + $squareSize), $this->_convertColor($color)
         );
 
         imageTTFText(
             $this->canvas,
             $fontSize,
             0,
-            $labelX + abs($labelBBox[0]), // Eliminate left overhang.
-            $labelY + abs($labelBBox[7]), // Eliminate area above the baseline.
-            $this->_convertColor($this->textColor),
+            (int)($labelX + abs($labelBBox[0])), // Eliminate left overhang.
+            (int)($labelY + abs($labelBBox[7])), // Eliminate area above the baseline.
+            (int)$this->_convertColor($this->textColor),
             $this->legendFont,
             $label
         );
@@ -328,9 +328,9 @@ class PieChartGD extends PieChart {
         imageTtfText(
             $this->canvas, $titleSize, 
             0,
-            $x + abs($titleBBox[0]),  // Account for left overhang.
-            $y + abs($titleBBox[7]),  // Account for the area above the baseline.
-            $titleColor, 
+            (int)($x + abs($titleBBox[0])),  // Account for left overhang.
+            (int)($y + abs($titleBBox[7])),  // Account for the area above the baseline.
+            (int)$titleColor,
             $this->titleFont, 
             $this->title
         );
